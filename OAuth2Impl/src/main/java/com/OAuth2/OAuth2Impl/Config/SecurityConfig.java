@@ -32,10 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
  	@Resource(name = "userService")
     private UserDetailsService userDetailsService;
-
+ 	
+ 	
     @Autowired
     private ClientDetailsService clientDetailsService;
-
+	
+	
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -57,11 +59,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api-docs/**").permitAll();
     }
 
+    /*
     @Bean
     public TokenStore tokenStore() {
-        return new InMemoryTokenStore();
+       return new InMemoryTokenStore();
     }
-
+    */
+     
+    
+    
     @Bean
     @Autowired
     public TokenStoreUserApprovalHandler userApprovalHandler(TokenStore tokenStore) {
@@ -71,6 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         handler.setClientDetailsService(clientDetailsService);
         return handler;
     }
+    
 
     @Bean
     @Autowired
@@ -79,6 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         store.setTokenStore(tokenStore);
         return store;
     }
+    
 
     @Bean
     public BCryptPasswordEncoder encoder() {
